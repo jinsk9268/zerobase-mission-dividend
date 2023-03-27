@@ -5,6 +5,7 @@ import com.zerobase.dividend.domain.DividendEntity;
 import com.zerobase.dividend.dto.CompanyDto;
 import com.zerobase.dividend.dto.DividendDto;
 import com.zerobase.dividend.dto.ScrapedResult;
+import com.zerobase.dividend.error.impl.NoCompanyException;
 import com.zerobase.dividend.repository.CompanyRepository;
 import com.zerobase.dividend.repository.DividendRepository;
 import com.zerobase.dividend.type.CacheKey;
@@ -31,7 +32,7 @@ public class FinanceService {
         log.info("search company -> " + companyName);
 
         CompanyEntity companyEntity = companyRepository.findByName(companyName)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사명입니다. -> " + companyName));
+                .orElseThrow(() -> new NoCompanyException());
 
         List<DividendEntity> dividendEntityList =
                 dividendRepository.findAllByCompanyId(companyEntity.getId());
