@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YahooFinanceScraper {
+public class YahooFinanceScraper implements ScraperInterface{
     private final String SCRAPED_URL = "https://finance.yahoo.com/quote/%s/history?period1=%d&period2=%d&interval=1mo";
     private final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
     private final long START_DATE = 86400;
 
+    @Override
     public ScrapedResult scrap(CompanyDto companyDto) {
         ScrapedResult scrapedResult = new ScrapedResult();
         scrapedResult.setCompanyDto(companyDto);
@@ -67,6 +68,7 @@ public class YahooFinanceScraper {
         return scrapedResult;
     }
 
+    @Override
     public CompanyDto scrapCompanyByTicker(String ticker) {
         String url = String.format(SUMMARY_URL, ticker, ticker);
 
