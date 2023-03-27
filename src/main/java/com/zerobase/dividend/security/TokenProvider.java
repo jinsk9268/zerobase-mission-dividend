@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,20 @@ public class TokenProvider {
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
+    }
+
+    public String getUsername(String token) {
+        return this.parseClaims(token).getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        if (!StringUtils.hasText(token)) {
+            return false;
+        }
+
+        Claims claims = this.parseClaims(token);
+
+        return !claims.getExpiration().before(new Date());
     }
 
     private Claims parseClaims(String token) {
