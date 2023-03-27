@@ -5,16 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "dividend")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(
+                columnNames = {"companyId", "date"}
+        )}
+)
 public class DividendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
