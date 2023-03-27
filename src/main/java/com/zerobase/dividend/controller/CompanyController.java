@@ -39,4 +39,12 @@ public class CompanyController {
     public ResponseEntity<?> searchCompany(final Pageable pageable) {
         return ResponseEntity.ok(companyService.getAllCompany(pageable));
     }
+
+    /**
+     * 자동 저장을 위한 회사명 조회
+     */
+    @GetMapping("/autocomplete")
+    public ResponseEntity<?> searchAutocomplete(String keyword) {
+        return ResponseEntity.ok(companyService.autocompleteList(keyword));
+    }
 }
