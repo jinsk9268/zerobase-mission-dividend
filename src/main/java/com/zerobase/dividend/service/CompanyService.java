@@ -79,7 +79,7 @@ public class CompanyService {
      */
     public List<String> autocompleteList(String keyword) {
         return (List<String>) trie.prefixMap(keyword).keySet()
-                .stream().collect(Collectors.toList());
+                .stream().limit(10).collect(Collectors.toList());
     }
 
     /**
