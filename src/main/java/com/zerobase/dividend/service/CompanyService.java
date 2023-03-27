@@ -8,6 +8,7 @@ import com.zerobase.dividend.repository.CompanyRepository;
 import com.zerobase.dividend.repository.DividendRepository;
 import com.zerobase.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.Trie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyService {
     private final Scraper yahooFinanceScraper;
+    private final Trie trie;
 
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
@@ -63,5 +65,12 @@ public class CompanyService {
      */
     public Page<CompanyEntity> getAllCompany(Pageable pageable) {
         return companyRepository.findAll(pageable);
+    }
+
+    /**
+     * 자동 검색을 위한 키워드
+     */
+    public void addAutocompleteKeyword(String keyword) {
+        trie.put(keyword, null);
     }
 }
