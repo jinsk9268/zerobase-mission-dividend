@@ -7,6 +7,7 @@ import com.zerobase.dividend.dto.DividendDto;
 import com.zerobase.dividend.dto.ScrapedResult;
 import com.zerobase.dividend.repository.CompanyRepository;
 import com.zerobase.dividend.repository.DividendRepository;
+import com.zerobase.dividend.type.CacheKey;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,7 +26,7 @@ public class FinanceService {
     /**
      * 회사의 모든 배당금 정보 조회
      */
-    @Cacheable(key = "#companyName", value = "finance")
+    @Cacheable(key = "#companyName", value = CacheKey.KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName) {
         log.info("search company -> " + companyName);
 
