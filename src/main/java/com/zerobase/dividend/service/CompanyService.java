@@ -73,4 +73,12 @@ public class CompanyService {
     public void addAutocompleteKeyword(String keyword) {
         trie.put(keyword, null);
     }
+
+    /**
+     * 자동 저장 회사 리스트
+     */
+    public List<String> autocompleteList(String keyword) {
+        return (List<String>) trie.prefixMap(keyword).keySet()
+                .stream().collect(Collectors.toList());
+    }
 }
