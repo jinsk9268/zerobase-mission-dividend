@@ -7,6 +7,7 @@ import com.zerobase.dividend.dto.ScrapedResult;
 import com.zerobase.dividend.repository.CompanyRepository;
 import com.zerobase.dividend.repository.DividendRepository;
 import com.zerobase.dividend.scraper.Scraper;
+import com.zerobase.dividend.type.CacheKey;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,7 +26,7 @@ public class ScraperScheduler {
     private final DividendRepository dividendRepository;
     private final Scraper yahooFinanceScrapper;
 
-    @CacheEvict(value = "finance", allEntries = true)
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
         List<CompanyEntity> companyEntityList = companyRepository.findAll();
