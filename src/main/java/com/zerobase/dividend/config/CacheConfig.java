@@ -1,6 +1,6 @@
 package com.zerobase.dividend.config;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CacheConfig {
     @Value("${spring.redis.host}")
     private String host;
