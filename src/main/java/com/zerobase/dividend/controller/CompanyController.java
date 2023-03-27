@@ -5,6 +5,7 @@ import com.zerobase.dividend.service.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class CompanyController {
      * 모든 회사 조회
      */
     @GetMapping
+    @PreAuthorize("hasRole('READ')")
     public ResponseEntity<?> searchCompany(final Pageable pageable) {
         return ResponseEntity.ok(companyService.getAllCompany(pageable));
     }
@@ -42,6 +44,7 @@ public class CompanyController {
      * 자동 완성을 위한 회사명 목록 조회
      */
     @GetMapping("/autocomplete")
+    @PreAuthorize("hasRole('WRITE')")
     public ResponseEntity<?> searchAutocomplete(String keyword) {
         return ResponseEntity.ok(companyService.getCompanyNamesByKeyword(keyword));
     }
