@@ -8,6 +8,7 @@ import com.zerobase.dividend.repository.CompanyRepository;
 import com.zerobase.dividend.repository.DividendRepository;
 import com.zerobase.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ScraperScheduler {
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
@@ -25,6 +27,8 @@ public class ScraperScheduler {
         List<CompanyEntity> companyEntityList = companyRepository.findAll();
 
         for (CompanyEntity c : companyEntityList) {
+            log.info("scraping scheduler is started -> " + c.getName());
+
             ScrapedResult scrapedResult = yahooFinanceScrapper.scrap(
                     new CompanyDto(c.getTicker(), c.getName())
             );
@@ -42,9 +46,11 @@ public class ScraperScheduler {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("scraping scheduler error -> " + e);
                 Thread.currentThread().interrupt();
             }
+
+            log.info("scraping scheduler is succeed -> " + c.getName());
         }
     }
 }
