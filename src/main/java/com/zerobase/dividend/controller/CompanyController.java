@@ -25,7 +25,11 @@ public class CompanyController {
             throw new RuntimeException("입력값이 없습니다.");
         }
 
-        return ResponseEntity.ok(companyService.addCompany(ticker));
+        CompanyDto companyDto = companyService.addCompany(ticker);
+
+        companyService.addAutocompleteKeyword(companyDto.getName());
+
+        return ResponseEntity.ok(companyDto);
     }
 
     /**
