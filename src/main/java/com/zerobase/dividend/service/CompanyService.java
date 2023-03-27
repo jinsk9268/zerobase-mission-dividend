@@ -69,7 +69,7 @@ public class CompanyService {
     }
 
     /**
-     * LIKE 문을 사용한 자동 검색을 위한 리스트 반환
+     * LIKE 문을 사용한 자동 완성 검색을 위한 리스트 반환
      */
     public List<String> getCompanyNamesByKeyword(String keyword) {
         Pageable limit = PageRequest.of(0, 10);
@@ -82,14 +82,14 @@ public class CompanyService {
     }
 
     /**
-     * trie에 자동 검색을 위한 키워드 저장
+     * 자동 완성 trie에 회사명 저장
      */
     public void addAutocompleteKeyword(String keyword) {
         trie.put(keyword, null);
     }
 
     /**
-     * trie에 keyword로 시작하는 회사들 리스트로 반환
+     * 자동 완성 trie에 keyword로 시작하는 회사들 리스트로 반환
      */
     public List<String> autocompleteList(String keyword) {
         return (List<String>) trie.prefixMap(keyword).keySet()
@@ -97,7 +97,7 @@ public class CompanyService {
     }
 
     /**
-     * trie에 저장된 회사명 삭제
+     * 자동 완성 trie에 저장된 회사명 삭제
      */
     public void deleteAutocompleteKeyword(String keyword) {
         trie.remove(keyword);

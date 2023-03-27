@@ -39,7 +39,7 @@ public class CompanyController {
     }
 
     /**
-     * 자동 저장을 위한 회사명 조회
+     * 자동 완성을 위한 회사명 목록 조회
      */
     @GetMapping("/autocomplete")
     public ResponseEntity<?> searchAutocomplete(String keyword) {
