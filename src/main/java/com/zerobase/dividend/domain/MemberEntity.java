@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Entity(name = "member")
 public class MemberEntity implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
