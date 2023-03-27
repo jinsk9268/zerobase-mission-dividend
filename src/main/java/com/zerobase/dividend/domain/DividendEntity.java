@@ -1,5 +1,6 @@
 package com.zerobase.dividend.domain;
 
+import com.zerobase.dividend.dto.DividendDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,10 @@ public class DividendEntity {
     private Long companyId;
     private LocalDateTime date;
     private String dividend;
+
+    public DividendEntity(Long companyId, DividendDto dividendDto) {
+        this.companyId = companyId;
+        this.date = dividendDto.getDate();
+        this.dividend = dividendDto.getDividend();
+    }
 }
