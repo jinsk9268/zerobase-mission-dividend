@@ -102,4 +102,18 @@ public class CompanyService {
     public void deleteAutocompleteKeyword(String keyword) {
         trie.remove(keyword);
     }
+
+    /**
+     * 회사 삭제
+     */
+    public String deleteCompany(String ticker) {
+        CompanyEntity companyEntity = companyRepository.findByTicker(ticker)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회사입니다."));
+
+        dividendRepository.deleteAllByCompanyId(companyEntity.getId());
+
+        companyRepository.delete(companyEntity);
+
+        return companyEntity.getName();
+    }
 }
