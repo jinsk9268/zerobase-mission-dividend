@@ -17,6 +17,7 @@ import java.util.List;
 
 public class YahooFinanceScraper {
     private final String SCRAPED_URL = "https://finance.yahoo.com/quote/%s/history?period1=%d&period2=%d&interval=1mo";
+    private final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
     private final long START_DATE = 86400;
 
     public ScrapedResult scrap(CompanyDto companyDto) {
@@ -64,5 +65,21 @@ public class YahooFinanceScraper {
         }
 
         return scrapedResult;
+    }
+
+    public CompanyDto scrapCompanyByTicker(String ticker) {
+        String url = String.format(SUMMARY_URL, ticker, ticker);
+
+        try {
+            Connection connection = Jsoup.connect(url);
+            Document document = connection.get();
+
+            Element h1 = document.getElementsByTag("h1").get(0);
+            String title = h1.text().split(" - ")[1].trim();
+
+            return new CompanyDto(ticker, title);
+        } catch (IOException e) {
+            throw new RuntimeException("회사 정보 스크래핑중 에러가 발생했습니다. -> " + e);
+        }
     }
 }
