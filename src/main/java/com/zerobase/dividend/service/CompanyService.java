@@ -68,7 +68,7 @@ public class CompanyService {
     }
 
     /**
-     * 자동 검색을 위한 키워드
+     * trie에 자동 검색을 위한 키워드 저장
      */
     public void addAutocompleteKeyword(String keyword) {
         trie.put(keyword, null);
