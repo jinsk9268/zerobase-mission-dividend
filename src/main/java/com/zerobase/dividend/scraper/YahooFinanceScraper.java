@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class YahooFinanceScraper extends ScraperConnection implements ScraperInterface {
+public class YahooFinanceScraper extends ScraperConnection implements Scraper {
     private final String SCRAPED_URL = "https://finance.yahoo.com/quote/%s/history?period1=%d&period2=%d&interval=1mo";
     private final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
     private final long START_DATE = 86400;
