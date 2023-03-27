@@ -25,6 +25,14 @@ public class CompanyService {
     /**
      * ticker 기준으로 회사, 배당금 정보 저장
      */
+    public CompanyDto addCompany(String ticker) {
+        if (companyRepository.existsByTicker(ticker)) {
+            throw new RuntimeException("이미 존재하는 회사 입니다. -> " + ticker);
+        }
+
+        return storeCompanyAndDividend(ticker);
+    }
+
     private CompanyDto storeCompanyAndDividend(String ticker) {
         // 스크래핑 결과 가져오기
         CompanyDto companyDto = yahooFinanceScraper.scrapCompanyByTicker(ticker);
