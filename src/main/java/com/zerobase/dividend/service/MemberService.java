@@ -2,6 +2,7 @@ package com.zerobase.dividend.service;
 
 import com.zerobase.dividend.domain.MemberEntity;
 import com.zerobase.dividend.dto.Auth;
+import com.zerobase.dividend.error.impl.AlreadyExistUserException;
 import com.zerobase.dividend.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +27,7 @@ public class MemberService implements UserDetailsService {
         boolean exists = this.memberRepository.existsByUsername(member.getUsername());
 
         if (exists) {
-            throw new RuntimeException("이미 사용중인 아이디 입니다. -> " + member.getUsername());
+            throw new AlreadyExistUserException();
         }
 
         member.setPassword(passwordEncoder.encode(member.getPassword()));
