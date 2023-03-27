@@ -5,7 +5,7 @@ public enum Month {
     FEB("Feb", 2),
     MAR("Mar", 3),
     APR("Apr", 4),
-    MAY("MAY", 5),
+    MAY("May", 5),
     JUN("Jun", 6),
     JUL("Jul", 7),
     AUG("Aug", 8),
