@@ -75,10 +75,17 @@ public class CompanyService {
     }
 
     /**
-     * 자동 저장 회사 리스트
+     * trie에 keyword로 시작하는 회사들 리스트로 반환
      */
     public List<String> autocompleteList(String keyword) {
         return (List<String>) trie.prefixMap(keyword).keySet()
                 .stream().collect(Collectors.toList());
+    }
+
+    /**
+     * trie에 저장된 회사명 삭제
+     */
+    public void deleteAutocompleteKeyword(String keyword) {
+        trie.remove(keyword);
     }
 }
