@@ -38,7 +38,7 @@ public class CompanyService {
         CompanyDto companyDto = yahooFinanceScraper.scrapCompanyByTicker(ticker);
 
         if (ObjectUtils.isEmpty(companyDto)) {
-            throw new RuntimeException("스크랩에 실패했습니다. -> " + ticker);
+            throw new RuntimeException("스크랩에 실패했습니다. 회사명을 다시 확인하거나 잠시 후 다시 시도해주세요-> " + ticker);
         }
 
         ScrapedResult scrapedResult = yahooFinanceScraper.scrap(companyDto);
