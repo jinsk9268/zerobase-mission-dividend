@@ -1,5 +1,6 @@
 package com.zerobase.dividend.domain;
 
+import com.zerobase.dividend.dto.CompanyDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,9 @@ public class CompanyEntity {
     @Column(unique = true)
     private String ticker;
     private String name;
+
+    public CompanyEntity(CompanyDto companyDto) {
+        this.ticker = companyDto.getTicker();
+        this.name = companyDto.getName();
+    }
 }
